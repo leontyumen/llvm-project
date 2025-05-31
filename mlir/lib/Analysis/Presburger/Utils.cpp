@@ -340,6 +340,10 @@ presburger::getDivLowerBound(ArrayRef<DynamicAPInt> dividend,
 }
 
 DynamicAPInt presburger::gcdRange(ArrayRef<DynamicAPInt> range) {
+  for (const DynamicAPInt &elem : range) {
+    if(abs(elem) == DynamicAPInt(1))
+      return DynamicAPInt(1);
+  }
   DynamicAPInt gcd(0);
   for (const DynamicAPInt &elem : range) {
     gcd = llvm::gcd(gcd, abs(elem));
